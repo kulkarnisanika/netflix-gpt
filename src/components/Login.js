@@ -46,7 +46,7 @@ const Login = () => {
                 setPassword(value)
             else if (field === NAME)
                 setName(value)
-            setValidationError('')
+            setValidationError("")
         }
         else {
             if (value === "")
