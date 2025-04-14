@@ -21,3 +21,11 @@ export const LABELS = {
     SIGN_IN: "Sign In",
     SIGN_UP_NOW: 'Sign up now.'
 }
+
+export const API_OPTIONS = {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkYjhjZGE3Mzk5M2EwZmRlYTE4YTYxMDMzOTgyZjNjYSIsIm5iZiI6MTc0NDYwNzY4Ny44ODcsInN1YiI6IjY3ZmM5OWM3NzY1YzUyMjJmMzk5NDhmOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.DbNA2z6P8T6V3ET3uQFOX-r7kNwNEny-1Wtx9bK2KP4'
+    }
+}
