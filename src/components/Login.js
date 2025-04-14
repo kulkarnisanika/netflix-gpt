@@ -3,8 +3,9 @@ import Header from './Header'
 import { getValidations } from '../utils/getValidations';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from '../utils/firebase';
-import { useNavigate } from 'react-router-dom';
-
+import { useDispatch } from 'react-redux';
+import { addUser } from '../utils/userSlice';
+import { IMG_URLS, LABELS, VALIDATION_ERRORS, FORM_FIELDS } from '../utils/constants';
 
 const Login = () => {
 
@@ -15,92 +16,92 @@ const Login = () => {
     const [name, setName] = useState('')
     const [disablePrimaryButton, setDisablePrimaryButton] = useState(false);
 
+    const dispatch = useDispatch();
+
     useEffect(() => {
-        if (email == '' || password == '')
+        if (email === '' || password === '')
             setDisablePrimaryButton(true)
         else
             setDisablePrimaryButton(false)
-
     }, [email, password]);
 
-    const navigate = useNavigate();
-
+    const { SIGN_UP, SIGN_IN, SIGN_UP_NOW } = LABELS;
+    const { EMAIL, PASSWORD, NAME } = FORM_FIELDS;
+    const { PASSWORD_UNVALID, NAME_UNVALID, EMAIL_UNVALID} = VALIDATION_ERRORS;
 
     let getHeading = () => {
-        return isLoggedIn ? 'Sign In' : 'Sign Up'
+        return isLoggedIn ? SIGN_IN : SIGN_UP;
     }
 
     let toggleLoggedInStatus = () => {
         setIsLoggedIn(!isLoggedIn);
     }
-    
+
     let validateInputField = (value, field) => {
         let checkValidation = getValidations(value, field);
         if (checkValidation) {
-            if (field === "email")
+            if (field === EMAIL)
                 setEmail(value)
-            else if (field === "password")
+            else if (field === PASSWORD)
                 setPassword(value)
-            else if (field === "name")
+            else if (field === NAME)
                 setName(value)
-
             setValidationError('')
-
-
         }
         else {
-            if(value === "")
+            if (value === "")
                 return
-            else if (field === "email")
-                setValidationError("Email is not valid")
-            else if (field === "password")
-                setValidationError("Password is not valid")
-            else if (field === "name")
-                setValidationError("Please enter proper name")
+            else if (field === EMAIL)
+                setValidationError(EMAIL_UNVALID)
+            else if (field === PASSWORD)
+                setValidationError(PASSWORD_UNVALID)
+            else if (field === NAME)
+                setValidationError(NAME_UNVALID)
         }
     }
-    
+
     let onPrimaryButtonClick = () => {
-        if(!isLoggedIn){
+        if (!isLoggedIn) {
             createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                updateProfile(auth.currentUser, {
-                    displayName: name, photoURL: "https://example.com/jane-q-user/profile.jpg"
-                  }).then(() => {
-                    navigate('/browse');
-                  }).catch((error) => {
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    updateProfile(auth.currentUser, {
+                        displayName: name, photoURL: "https://example.com/jane-q-user/profile.jpg"
+                    }).then(() => {
+                        const { uid, email, displayName } = auth?.currentUser;
+                        dispatch(addUser({
+                            uid: uid,
+                            email: email,
+                            displayName: displayName
+                        }));
+                    }).catch((error) => {
+                        setValidationError(error?.message)
+                    });
+                })
+                .catch((error) => {
                     setValidationError(error?.message)
-                  });
-            })
-            .catch((error) => {
-                setValidationError(error?.message)
-            });
-        }else{
+                });
+        } else {
             signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-              const user = userCredential.user;
-              navigate('/browse');
-            })
-            .catch((error) => {
-                setValidationError(error?.message)
-            });
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                })
+                .catch((error) => {
+                    setValidationError(error?.message)
+                });
         }
 
     }
-
-
 
     return (
         <div>
-
             <Header />
             <div className='absolute h-screen w-full'>
-                <img src="https://assets.nflxext.com/ffe/siteui/vlv3/fa4630b1-ca1e-4788-94a9-eccef9f7af86/web/IN-en-20250407-TRIFECTA-perspective_43f6a235-9f3d-47ef-87e0-46185ab6a7e0_small.jpg"
+                <img src={IMG_URLS?.BACKGROUND_IMG}
                     alt="netflix=bg-image"
                 />
             </div>
-            <form className='absolute text-white w-3/12 mx-auto left-0 right-0 my-40 px-7 py-8 bg-black bg-opacity-80 rounded' onSubmit={(e) =>  e.preventDefault()}>
+            <form className='absolute text-white w-3/12 mx-auto left-0 right-0 my-40 px-7 py-8 bg-black bg-opacity-80 rounded' onSubmit={(e) => e.preventDefault()}>
                 <h1 className='text-3xl font-bold pb-3'>{getHeading()}</h1>
                 {
                     isLoggedIn === false && (
@@ -113,11 +114,11 @@ const Login = () => {
                 <button className={`my-3 p-3 mt-4 w-full rounded ${disablePrimaryButton ? "bg-red-900 cursor-not-allowed opacity-50" : "bg-rose-600"}`} disabled={disablePrimaryButton} onClick={onPrimaryButtonClick}>{getHeading()}</button>
                 <p className='my-4 p-3 mt-4 w-full'>
                     <span className='text-2 text-gray-300'> {isLoggedIn ? "New to Netflix" : "Already have an account?"} </span>
-                    <span className='text-2 font-bold text-gray-300 cursor-pointer' onClick={toggleLoggedInStatus}>{isLoggedIn ? 'Sign up now.' : 'Sign In'}</span>
+                    <span className='text-2 font-bold text-gray-300 cursor-pointer' onClick={toggleLoggedInStatus}>{isLoggedIn ? SIGN_UP_NOW : SIGN_IN}</span>
                 </p>
             </form>
         </div>
     )
 }
 
-export default Login
+export default Login;
