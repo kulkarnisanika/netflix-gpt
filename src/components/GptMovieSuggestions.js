@@ -10,12 +10,17 @@ const GptMovieSuggestions = () => {
   return (
     <div className='bg-black m-8 p-4 opacity-90'>
       {
-        recommendedMovieNames?.map((movie,index) => (
-          <MovieList
-          key = {movie}
-          title = {movie}
-          movieList={recommendedMovieDetails?.[index]?.results} />
-        ))
+        recommendedMovieNames?.map((movie,index) => {
+          console.log("recommendedMovieDetails?.[index]?.results",recommendedMovieDetails?.[index]?.results)
+          if(!!recommendedMovieDetails?.[index]?.results?.length){
+            return (
+              <MovieList
+              key = {movie}
+              title = {movie}
+              movieList={recommendedMovieDetails?.[index]?.results} />
+            )
+          }
+        })
       }
     </div>
   )
