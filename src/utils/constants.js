@@ -22,7 +22,9 @@ export const VALIDATION_ERRORS = {
 export const LABELS = {
     SIGN_UP: "Sign Up",
     SIGN_IN: "Sign In",
-    SIGN_UP_NOW: 'Sign up now.'
+    SIGN_UP_NOW: 'Sign up now.',
+    GPT_SEARCH : "GPT Search",
+    BROWSE_MOVIES: "Browse Movies"
 }
 
 export const API_OPTIONS = {
