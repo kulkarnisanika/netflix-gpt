@@ -20,9 +20,10 @@ const GptSearchBar = () => {
 
   const onSearchButtonClick = async () => {
     //search movies using openai API : Get movie recommendations
-    const GPT_QUERY = "Give me only 5 " + searchInput?.current?.value + " movie names in comma separated format. No explanation, no extra text. example- A,B,C,D,E"
+    const GPT_QUERY = "Give me only 5 " + searchInput?.current?.value + " movie names in comma separated format in english language. No explanation, no extra text. example- A,B,C,D,E"
 
-    const openaiResult = await openai.chat.completions.create({
+    //*********************Executing model by open router*************************** */
+    /*const openaiResult = await openai.chat.completions.create({
       model: "mistralai/mistral-7b-instruct",
       messages: [
         {
@@ -35,11 +36,20 @@ const GptSearchBar = () => {
           ]
         }
       ]
+    });*/
+
+    //***********************google model***************************** */
+    const openaiResult = await openai.models.generateContent({
+      model: 'gemini-2.0-flash-001',
+      contents: GPT_QUERY,
     });
 
     //Format movie name to array
-    if (openaiResult?.choices) {
-      const recommendedMovies = openaiResult?.choices[0]?.message?.content;
+    if (openaiResult) {
+
+      //const recommendedMovies = openaiResult?.choices[0]?.message?.content;  //open router data fetching
+
+      const recommendedMovies = openaiResult?.candidates?.[0]?.content?.parts?.[0]?.text; //fetching data given by google model
       const searchTmdbMovieInput = recommendedMovies?.split(',');
       const searchedTmdbResponses = searchTmdbMovieInput?.map((movie) => (searchRecommendedMovies(movie)));
 
