@@ -1,70 +1,75 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# CineGPT – AI-Powered Movie Recommendation App
 
-## Available Scripts
 
-In the project directory, you can run:
 
-### `npm start`
+CineGPT is a modern, responsive movie streaming app inspired by Netflix clone — enhanced with AI capabilities using OpenAI's GPT APIs. This full-stack project combines a reach responsive UI (Desktop, Tablet and Mobile) with smart features like multilingual support(English, Spanish, French, Hindi and Marathi), personalized recommendation based browsing, and robust authentication.
+## Features
+    1. GPT-Powered Movie Recommendations
+    2. Multilingual Support (Hindi, Marathi, Spanish, French, English)  
+    3. Firebase Authentication (SignIn/SignUp functionality)
+    4. Form Validation with Realtime Feedback
+    5. Live Movie Data with TMDB APIs
+    6. Global State Management with Redux
+    7. Custom Hooks for clean and cleaner industry based implementation
+    8. Modern Responsive UI using Tailwind CSS (Desktop, Tablet, Mobile)
+    9. Modular & Scalable Codebase
+    10. Environment Configuration via .env and appConfig created in store 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Component Structure
+     - Login
+          - SignIn/SignUp Form
+          - Authentication
+          - Form validation
+          - Redirect to Browse
+     - Browse
+          - Header    
+          - Main Container
+               - Video Title
+               - Video Background
+          - Secondary container
+               - Movie List
+                    - Cards * movie types
+               - GPTSerach container       
+                    - GPT Serach Bar
+                    - GPT movie suggestion
+                        - Movie List
+                            - Cards
 
-### `npm test`
+          
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## Redux Store Architecture
+    - appConfig
+        - lang: 'en'
+    - user
+        - uid: null
+        - email: null
+        - displayName: null
+    - movie 
+        - nowPlayingMovies: null
+        - topRatedMovies: null
+        - popularMovies: null
+        - UpcomingMivies: null
+        - trailerVideo: null
+    - gpt
+        - enableGptSearch: false
+        - recommendedMovieNames: null
+        - recommendedMovieDetails: null
+## Project Setup
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Before running the project, please add .env file at root level.
+Ensure you have added below keys in .env file:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    1. TMDB API key
+    2. openai key
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+After adding above keys:
 
-### `npm run eject`
+    1. clone "https://github.com/kulkarnisanika/netflix-gpt.git"
+    2. run - npm install
+    3. run - npm start
+## Hosting URL
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+https://netflix-gpt-314ec.web.app
