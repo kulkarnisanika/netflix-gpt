@@ -2,6 +2,7 @@ import React from 'react'
 import MovieList from './MovieList'
 import { useSelector } from 'react-redux'
 import { MOVIE_TITLES } from '../utils/constants';
+import LANGUAGE_CONSTANTS from '../utils/languageConstants';
 
 const SecondaryContainer = () => {
 
@@ -9,7 +10,9 @@ const SecondaryContainer = () => {
   const topRatedMovies = useSelector((store) => store?.movie?.topRatedMovies?.results);
   const popularMovies = useSelector((store) => store?.movie?.popularMovies?.results);
   const upcomingMovies = useSelector((store) => store?.movie?.upcomingMovies?.results);
-  const {NOW_PLAYING_MOVIES, TOP_RATED_MOVIES, POPULAR_MOVIES,UPCOMING_MOVIES} = MOVIE_TITLES
+  const configuredLanguage = useSelector((store) => store?.appConfig?.lang)
+
+  const { MOVIE_TITLES: { NOW_PLAYING_MOVIES, TOP_RATED_MOVIES, POPULAR_MOVIES, UPCOMING_MOVIES } = {} } = LANGUAGE_CONSTANTS?.[configuredLanguage] || {};
 
   if (!nowPlayingMovies || !popularMovies || !upcomingMovies || !topRatedMovies) return;
 

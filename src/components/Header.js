@@ -4,17 +4,22 @@ import { useNavigate } from 'react-router-dom';
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useDispatch, useSelector } from 'react-redux';
 import { addUser, removeUser } from '../utils/userSlice';
-import { IMG_URLS, LABELS } from '../utils/constants';
+import { IMG_URLS, LABELS, SUPPORTED_LANGUAGES } from '../utils/constants';
 import { enableGptSearchFeature } from '../utils/gptSlice';
+import {updateLanguage} from "../utils/configSlice"
+import LANGUAGE_CONSTANTS from '../utils/languageConstants';
 
 const Header = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const user = useSelector((store) => store?.user);
-  const enableGptSearch = useSelector((store) => store?.gpt?.enableGptSearch)
+  const enableGptSearch = useSelector((store) => store?.gpt?.enableGptSearch);
+  const configuredLanguage = useSelector((store) => store?.appConfig?.lang);
+
+  const { LABELS = {} } = LANGUAGE_CONSTANTS?.[configuredLanguage] || {};
   const { AVTAR_URL, LOGO_URL } = IMG_URLS;
-  const { GPT_SEARCH, BROWSE_MOVIES } = LABELS
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -35,7 +40,9 @@ const Header = () => {
     return () => unsubscribe();
   }, [])
 
-
+  const handleLanguageChange = (e) => {
+    dispatch(updateLanguage(e?.target.value))
+  }
   const handleSignOut = () => {
     signOut(auth).then(() => {
     }).catch((error) => {
@@ -54,14 +61,44 @@ const Header = () => {
       />
       {
         user &&
-        <div className='flex pb-4 md:p-4 sm:p-4 mx-10 items-center gap-4 justify-center md:justify-normal '>
-          <button className='text-white bg-violet-900 px-4 py-2 cursor-pointer rounded' onClick={handleGptToggle}>
-            {enableGptSearch ? BROWSE_MOVIES : GPT_SEARCH}
+        <div
+          className='flex pb-4 md:p-4 sm:p-4 mx-10 items-center gap-4 justify-center md:justify-normal '>
+          <select
+            className='bg-red-800 p-2 rounded text-white'
+            onChange={handleLanguageChange}
+            value={configuredLanguage}
+          >
+            {
+              SUPPORTED_LANGUAGES.map(
+                (lang) => (
+                  <option className='bg-black opacity-80 text-white text-sm'
+                    key={lang?.identifier}
+                    value={lang?.identifier}>
+                    {lang?.value}
+                  </option>
+                )
+              )
+            }
+          </select>
+
+          <button
+            className='text-white bg-violet-900 px-4 py-2 cursor-pointer rounded'
+            onClick={handleGptToggle}
+          >
+            {enableGptSearch ? LABELS?.BROWSE_MOVIES : LABELS?.GPT_SEARCH}
           </button>
+
           <img src={AVTAR_URL}
             alt="user logo"
-            className='w-9 h-9' />
-          <button className='text-white font-bold cursor-pointer' onClick={handleSignOut}>Sign Out</button>
+            className='w-9 h-9'
+          />
+
+          <button
+            className='text-white font-bold cursor-pointer'
+            onClick={handleSignOut}>
+            {LABELS?.SIGN_OUT}
+          </button>
+
         </div>
       }
 

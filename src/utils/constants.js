@@ -13,19 +13,28 @@ export const FORM_FIELDS = {
     NAME: "name"
 }
 
-export const VALIDATION_ERRORS = {
-    EMAIL_UNVALID: "Email is not valid",
-    PASSWORD_UNVALID: "Password is not valid",
-    NAME_UNVALID: "Please enter proper name",
-}
-
-export const LABELS = {
-    SIGN_UP: "Sign Up",
-    SIGN_IN: "Sign In",
-    SIGN_UP_NOW: 'Sign up now.',
-    GPT_SEARCH : "GPT Search",
-    BROWSE_MOVIES: "Browse Movies"
-}
+export const SUPPORTED_LANGUAGES = [
+    {
+        "identifier": "en",
+        "value": "English"
+    },
+    {
+        "identifier": "hi",
+        "value": "हिंदी"
+    },
+    {
+        "identifier": "es",
+        "value": "Español"
+    },
+    {
+        "identifier": "fr",
+        "value": "Français"
+    },
+    {
+        "identifier": "mr",
+        "value": "मराठी"
+    },
+]
 
 export const API_OPTIONS = {
     method: 'GET',
@@ -35,9 +44,4 @@ export const API_OPTIONS = {
     }
 }
 
-export const MOVIE_TITLES = {
-    NOW_PLAYING_MOVIES: "Now Playing Movies",
-    TOP_RATED_MOVIES: "Top Rated Movies",
-    POPULAR_MOVIES: "Popular Movies",
-    UPCOMING_MOVIES: "Upcoming Movies"
-}
+export const TRAILER = "Trailer";

@@ -6,7 +6,7 @@ const MovieCard = ({ posterUrl }) => {
   return posterUrl && (
     <div className='w-36 p-2'>
       <img
-        alt={"poster img" + posterUrl}
+        alt={"poster img"}
         src={IMG_URLS.POSTER_BASE_PATH + posterUrl}
       />
     </div>

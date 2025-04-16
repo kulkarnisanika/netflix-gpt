@@ -1,16 +1,19 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { API_OPTIONS } from '../utils/constants';
 import openai from '../utils/openai'
 import React, { useRef } from 'react'
 import { addOpenaiRecommendedMovies } from '../utils/gptSlice';
+import LANGUAGE_CONSTANTS from '../utils/languageConstants';
 
 const GptSearchBar = () => {
 
   const searchInput = useRef(null);
   const dispatch = useDispatch();
+  const configuredLanguage = useSelector((store) => store?.appConfig?.lang)
+  const { LABELS: { SEARCH, SEARCH_PLACEHOLDER } = {} } = LANGUAGE_CONSTANTS?.[configuredLanguage] || {};
 
-  const searchRecommendedMovies = async(movie) => {
-    const response = await fetch("https://api.themoviedb.org/3/search/movie?query="+movie+"&include_adult=false&language=en-US&page=1", API_OPTIONS);
+  const searchRecommendedMovies = async (movie) => {
+    const response = await fetch("https://api.themoviedb.org/3/search/movie?query=" + movie + "&include_adult=false&language=en-US&page=1", API_OPTIONS);
     const movieDetails = await response.json();
     return movieDetails;
   }
@@ -44,9 +47,9 @@ const GptSearchBar = () => {
       const searchedTmdbMovieDetails = await Promise.all(searchedTmdbResponses);
 
       //set those details in store
-      dispatch(addOpenaiRecommendedMovies({recommendedMovieNames:searchTmdbMovieInput, recommendedMovieDetails:searchedTmdbMovieDetails}))
-      
-    
+      dispatch(addOpenaiRecommendedMovies({ recommendedMovieNames: searchTmdbMovieInput, recommendedMovieDetails: searchedTmdbMovieDetails }))
+
+
     }
     else return;
   }
@@ -56,13 +59,13 @@ const GptSearchBar = () => {
       <form className='grid grid-cols-12 w-3/4 lg:w-1/2 bg-black py-4 px-6 space-y-3 md:space-x-4 md:space-y-0 rounded' onSubmit={(e) => e.preventDefault()}>
         <input
           ref={searchInput}
-          className='p-3  col-span-12 md:col-span-9  rounded'
+          className='p-3  col-span-12 md:col-span-9 rounded'
           type="text" name="gptSearchInput"
-          placeholder="What would you like to see?" />
+          placeholder={SEARCH_PLACEHOLDER} />
         <button
           className='bg-rose-600 px-3 py-2 md:x-5 rounded text-white col-span-12 md:col-span-3'
           onClick={onSearchButtonClick}>
-          Search
+          {SEARCH}
         </button>
       </form>
     </div>

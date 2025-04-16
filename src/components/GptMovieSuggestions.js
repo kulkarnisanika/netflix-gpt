@@ -11,7 +11,6 @@ const GptMovieSuggestions = () => {
     <div className='bg-black m-8 p-4 opacity-90'>
       {
         recommendedMovieNames?.map((movie,index) => {
-          console.log("recommendedMovieDetails?.[index]?.results",recommendedMovieDetails?.[index]?.results)
           if(!!recommendedMovieDetails?.[index]?.results?.length){
             return (
               <MovieList

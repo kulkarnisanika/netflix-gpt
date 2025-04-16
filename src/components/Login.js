@@ -3,9 +3,10 @@ import Header from './Header'
 import { getValidations } from '../utils/getValidations';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from '../utils/firebase';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addUser } from '../utils/userSlice';
-import { IMG_URLS, LABELS, VALIDATION_ERRORS, FORM_FIELDS } from '../utils/constants';
+import { IMG_URLS, FORM_FIELDS } from '../utils/constants';
+import LANGUAGE_CONSTANTS from '../utils/languageConstants';
 
 const Login = () => {
 
@@ -16,6 +17,7 @@ const Login = () => {
     const [name, setName] = useState('')
     const [disablePrimaryButton, setDisablePrimaryButton] = useState(false);
 
+    const configuredLanguage = useSelector((store) => store?.appConfig?.lang);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -25,9 +27,13 @@ const Login = () => {
             setDisablePrimaryButton(false)
     }, [email, password]);
 
-    const { SIGN_UP, SIGN_IN, SIGN_UP_NOW } = LABELS;
+    //CONSTANTS DECLARATION
+    const { LABELS: { SIGN_UP, SIGN_IN, SIGN_UP_NOW } = {},
+        VALIDATION_ERRORS: { PASSWORD_UNVALID, NAME_UNVALID, EMAIL_UNVALID } = {},
+        LABELS: {FULL_NAME_PLACEHOLDER,PASSWORD_PLACEHOLDER,EMAIL_PLACEHOLDER,ALREADY_HAVE_AN_ACCOUNT,NEW_TO_NETFLIX} = {}
+    } = LANGUAGE_CONSTANTS?.[configuredLanguage] || {};
+
     const { EMAIL, PASSWORD, NAME } = FORM_FIELDS;
-    const { PASSWORD_UNVALID, NAME_UNVALID, EMAIL_UNVALID} = VALIDATION_ERRORS;
 
     let getHeading = () => {
         return isLoggedIn ? SIGN_IN : SIGN_UP;
@@ -99,22 +105,22 @@ const Login = () => {
             <div className='absolute h-screen w-full'>
                 <img src={IMG_URLS?.BACKGROUND_IMG}
                     alt="netflix=bg-image"
-                    className='fixed w-full h-screen lg:h-full xl:h-full object-cover' 
+                    className='fixed w-full h-screen lg:h-full xl:h-full object-cover'
                 />
             </div>
             <form className='absolute text-white w-9/12 sm:w-5/12 lg:w-3/12 xl:w-3/12 mx-auto left-0 right-0 my-40 px-7 py-8 bg-black bg-opacity-80 rounded' onSubmit={(e) => e.preventDefault()}>
                 <h1 className='text-3xl font-bold pb-3'>{getHeading()}</h1>
                 {
                     isLoggedIn === false && (
-                        <input className=' my-3 p-3 w-full bg-gray-950 bg-opacity-50 rounded' type="text" placeholder="Full Name" name="name" onBlur={(e) => { validateInputField(e.target.value, e.target.name) }} />
+                        <input className=' my-3 p-3 w-full bg-gray-950 bg-opacity-50 rounded' type="text" placeholder={FULL_NAME_PLACEHOLDER} name="name" onBlur={(e) => { validateInputField(e.target.value, e.target.name) }} />
                     )
                 }
-                <input className=' my-3 p-3 w-full bg-gray-950 bg-opacity-50 rounded' type="text" placeholder="Email" name="email" onBlur={(e) => { validateInputField(e.target.value, e.target.name) }} />
-                <input className=' my-3 p-3 w-full bg-gray-950 bg-opacity-50 rounded' type="password" placeholder="Password" name="password" onBlur={(e) => { validateInputField(e.target.value, e.target.name) }} />
+                <input className=' my-3 p-3 w-full bg-gray-950 bg-opacity-50 rounded' type="text" placeholder={EMAIL_PLACEHOLDER} name="email" onBlur={(e) => { validateInputField(e.target.value, e.target.name) }} />
+                <input className=' my-3 p-3 w-full bg-gray-950 bg-opacity-50 rounded' type="password" placeholder={PASSWORD_PLACEHOLDER} name="password" onBlur={(e) => { validateInputField(e.target.value, e.target.name) }} />
                 {validationError && <p className="text-red-500 text-sm mt-1 p-3">{validationError}</p>}
                 <button className={`my-3 p-3 mt-4 w-full rounded ${disablePrimaryButton ? "bg-red-900 cursor-not-allowed opacity-50" : "bg-rose-600"}`} disabled={disablePrimaryButton} onClick={onPrimaryButtonClick}>{getHeading()}</button>
                 <p className='my-4 p-3 mt-4 w-full'>
-                    <span className='text-2 text-gray-300'> {isLoggedIn ? "New to Netflix" : "Already have an account?"} </span>
+                    <span className='text-2 text-gray-300'> {isLoggedIn ? NEW_TO_NETFLIX : ALREADY_HAVE_AN_ACCOUNT} </span>
                     <span className='text-2 font-bold text-gray-300 cursor-pointer' onClick={toggleLoggedInStatus}>{isLoggedIn ? SIGN_UP_NOW : SIGN_IN}</span>
                 </p>
             </form>
