@@ -62,7 +62,7 @@ const Header = () => {
       {
         user &&
         <div
-          className='flex pb-4 md:p-4 sm:p-4 mx-10 items-center gap-4 justify-center md:justify-normal '>
+          className='flex pb-4 md:p-4 sm:p-4 mx-10 items-center gap-4 justify-center md:justify-normal flex-wrap '>
           <select
             className='bg-red-800 p-2 rounded text-white'
             onChange={handleLanguageChange}
