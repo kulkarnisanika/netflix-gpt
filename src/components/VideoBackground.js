@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import useTrailerVideoDetails from '../hooks/useLoadTrailerVideoDetails';
 import { IMG_URLS } from '../utils/constants';
 
@@ -12,7 +12,7 @@ const VideoBackground = ({ movieId }) => {
     return (
         <div className='w-screen'>
             <iframe
-                className='w-full aspect-video'
+                className='w-full aspect-video border-none'
                 src={VIDEO_BACKGROUND_BASE_PATH + trailerVideoDetails?.key + VIDEO_BACKGROUND_FILTERS}
                 alt="background video"
             />

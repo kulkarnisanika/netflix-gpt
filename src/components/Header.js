@@ -48,13 +48,13 @@ const Header = () => {
   }
 
   return (
-    <div className="absolute bg-gradient-to-t from-black z-10 w-screen flex justify-between">
-      <img className="w-52 py-2 px-8" src={LOGO_URL}
+    <div className="absolute bg-gradient-to-t from-black z-10 w-screen sm:flex md:flex justify-between">
+      <img className="mx-auto md:mx-2 sm:mx-2 w-52 py-2 px-8" src={LOGO_URL}
         alt="netflix-logo"
       />
       {
         user &&
-        <div className='flex p-4 mx-10 items-center gap-4'>
+        <div className='flex pb-4 md:p-4 sm:p-4 mx-10 items-center gap-4 justify-center md:justify-normal '>
           <button className='text-white bg-violet-900 px-4 py-2 cursor-pointer rounded'onClick={handleGptToggle}>GPT Search</button>
           <img src={AVTAR_URL}
             alt="user logo"

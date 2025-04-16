@@ -14,8 +14,8 @@ const SecondaryContainer = () => {
   if (!nowPlayingMovies || !popularMovies || !upcomingMovies || !topRatedMovies) return;
 
   return (
-    <div className='px-4 bg-black'>
-      <div className='-mt-44 relative z-20 space-y-5'>
+    <div className='px-6  bg-black'>
+      <div className='-mt-16 sm:-mt-12 md:-mt-44 lg:-mt-16 xl:-mt-60 relative z-20 space-y-5'>
         <MovieList title={NOW_PLAYING_MOVIES} movieList={nowPlayingMovies} />
         <MovieList title={TOP_RATED_MOVIES} movieList={topRatedMovies} />
         <MovieList title={POPULAR_MOVIES} movieList={popularMovies} />

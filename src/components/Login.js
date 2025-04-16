@@ -99,9 +99,10 @@ const Login = () => {
             <div className='absolute h-screen w-full'>
                 <img src={IMG_URLS?.BACKGROUND_IMG}
                     alt="netflix=bg-image"
+                    className='fixed w-full h-screen lg:h-full xl:h-full object-cover' 
                 />
             </div>
-            <form className='absolute text-white w-3/12 mx-auto left-0 right-0 my-40 px-7 py-8 bg-black bg-opacity-80 rounded' onSubmit={(e) => e.preventDefault()}>
+            <form className='absolute text-white w-9/12 sm:w-5/12 lg:w-3/12 xl:w-3/12 mx-auto left-0 right-0 my-40 px-7 py-8 bg-black bg-opacity-80 rounded' onSubmit={(e) => e.preventDefault()}>
                 <h1 className='text-3xl font-bold pb-3'>{getHeading()}</h1>
                 {
                     isLoggedIn === false && (
