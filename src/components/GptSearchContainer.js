@@ -8,7 +8,7 @@ const GptSearchContainer = () => {
     <div> 
       <div className='absolute -z-10 '>
         <img src={IMG_URLS?.BACKGROUND_IMG}
-          alt="netflix=bg-image"
+          alt="CineGPT-bg-image"
           className=' h-screen object-cover fixed lg:w-full'
         />
       </div>

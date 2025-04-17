@@ -30,7 +30,7 @@ const Login = () => {
     //CONSTANTS DECLARATION
     const { LABELS: { SIGN_UP, SIGN_IN, SIGN_UP_NOW } = {},
         VALIDATION_ERRORS: { PASSWORD_UNVALID, NAME_UNVALID, EMAIL_UNVALID } = {},
-        LABELS: {FULL_NAME_PLACEHOLDER,PASSWORD_PLACEHOLDER,EMAIL_PLACEHOLDER,ALREADY_HAVE_AN_ACCOUNT,NEW_TO_NETFLIX} = {}
+        LABELS: {FULL_NAME_PLACEHOLDER,PASSWORD_PLACEHOLDER,EMAIL_PLACEHOLDER,ALREADY_HAVE_AN_ACCOUNT,NEW_TO_CINEGPT} = {}
     } = LANGUAGE_CONSTANTS?.[configuredLanguage] || {};
 
     const { EMAIL, PASSWORD, NAME } = FORM_FIELDS;
@@ -104,7 +104,7 @@ const Login = () => {
             <Header />
             <div className='absolute h-screen w-full'>
                 <img src={IMG_URLS?.BACKGROUND_IMG}
-                    alt="netflix=bg-image"
+                    alt="CineGPT-bg-image"
                     className='fixed w-full h-screen lg:h-full xl:h-full object-cover'
                 />
             </div>
@@ -120,7 +120,7 @@ const Login = () => {
                 {validationError && <p className="text-red-500 text-sm mt-1 p-3">{validationError}</p>}
                 <button className={`my-3 p-3 mt-4 w-full rounded ${disablePrimaryButton ? "bg-red-900 cursor-not-allowed opacity-50" : "bg-rose-600"}`} disabled={disablePrimaryButton} onClick={onPrimaryButtonClick}>{getHeading()}</button>
                 <p className='my-4 p-3 mt-4 w-full'>
-                    <span className='text-2 text-gray-300'> {isLoggedIn ? NEW_TO_NETFLIX : ALREADY_HAVE_AN_ACCOUNT} </span>
+                    <span className='text-2 text-gray-300'> {isLoggedIn ? NEW_TO_CINEGPT : ALREADY_HAVE_AN_ACCOUNT} </span>
                     <span className='text-2 font-bold text-gray-300 cursor-pointer' onClick={toggleLoggedInStatus}>{isLoggedIn ? SIGN_UP_NOW : SIGN_IN}</span>
                 </p>
             </form>
