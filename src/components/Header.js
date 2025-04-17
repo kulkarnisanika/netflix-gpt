@@ -56,7 +56,7 @@ const Header = () => {
 
   return (
     <div className="absolute bg-gradient-to-t from-black z-10 w-screen sm:flex md:flex justify-between">
-      <img className="mx-auto md:mx-2 sm:mx-2 w-52 py-2 px-8  w-44 h-16" src={LOGO_URL}
+      <img className="mx-auto md:mx-2 sm:mx-2 py-2 px-8 w-44 h-16" src={LOGO_URL}
         alt="CineGPT-logo"
       />
       {
@@ -64,7 +64,7 @@ const Header = () => {
         <div
           className='flex pb-4 md:p-4 sm:p-4 mx-10 items-center gap-4 justify-center md:justify-normal flex-wrap '>
           <select
-            className='bg-red-800 p-2 rounded text-white'
+            className='bg-red-800 p-2 rounded text-white text-sm'
             onChange={handleLanguageChange}
             value={configuredLanguage}
           >
@@ -82,7 +82,7 @@ const Header = () => {
           </select>
 
           <button
-            className='text-white bg-violet-900 px-4 py-2 cursor-pointer rounded'
+            className='text-white bg-violet-900 px-4 py-2 cursor-pointer rounded text-sm'
             onClick={handleGptToggle}
           >
             {enableGptSearch ? LABELS?.BROWSE_MOVIES : LABELS?.GPT_SEARCH}
@@ -90,11 +90,11 @@ const Header = () => {
 
           <img src={AVTAR_URL}
             alt="user logo"
-            className='w-9 h-9'
+            className='w-8 h-8'
           />
 
           <button
-            className='text-white font-bold cursor-pointer'
+            className='text-white font-bold cursor-pointer text-sm'
             onClick={handleSignOut}>
             {LABELS?.SIGN_OUT}
           </button>
