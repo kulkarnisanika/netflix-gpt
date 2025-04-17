@@ -65,11 +65,13 @@ Ensure you have added below keys in .env file:
     1. TMDB API key
     2. openai key
 
-After adding above keys:
+After adding above keys, Follow these steps to run the project:
 
-    1. clone "https://github.com/kulkarnisanika/netflix-gpt.git"
-    2. run - npm install
-    3. run - npm start
+    1. Clone the Repository - git clone https://github.com/kulkarnisanika/cine-gpt.git
+    2. Navigate into the Project Directory - cd cine-gpt
+    3. Install Dependencies - npm install
+    4. Run the Development Server - npm start
 ## Hosting URL
 
-https://netflix-gpt-314ec.web.app
+https://cine-gpt-app.web.app/
+Username/Password - emily@cinegpt.com/Emily@12345
