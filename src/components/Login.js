@@ -20,8 +20,9 @@ const Login = () => {
     const configuredLanguage = useSelector((store) => store?.appConfig?.lang);
     const dispatch = useDispatch();
 
+
     useEffect(() => {
-        if (email === '' || password === '')
+        if (email === '' || password === '' || validationError !== '')
             setDisablePrimaryButton(true)
         else
             setDisablePrimaryButton(false)
@@ -115,8 +116,8 @@ const Login = () => {
                         <input className=' my-3 p-3 w-full bg-gray-950 bg-opacity-50 rounded' type="text" placeholder={FULL_NAME_PLACEHOLDER} name="name" onBlur={(e) => { validateInputField(e.target.value, e.target.name) }} />
                     )
                 }
-                <input className=' my-3 p-3 w-full bg-gray-950 bg-opacity-50 rounded' type="text" placeholder={EMAIL_PLACEHOLDER} name="email" onBlur={(e) => { validateInputField(e.target.value, e.target.name) }} />
-                <input className=' my-3 p-3 w-full bg-gray-950 bg-opacity-50 rounded' type="password" placeholder={PASSWORD_PLACEHOLDER} name="password" onBlur={(e) => { validateInputField(e.target.value, e.target.name) }} />
+                <input className=' my-3 p-3 w-full bg-gray-950 bg-opacity-50 rounded' type="text" placeholder={EMAIL_PLACEHOLDER} name="email" onBlur={(e) => { validateInputField(e.target.value, e.target.name) }} onChange={(e) => { validateInputField(e.target.value, e.target.name) }} />
+                <input className=' my-3 p-3 w-full bg-gray-950 bg-opacity-50 rounded' type="password" placeholder={PASSWORD_PLACEHOLDER} name="password" onChange={(e) => { validateInputField(e.target.value, e.target.name) }} onBlur={(e) => { validateInputField(e.target.value, e.target.name) }} />
                 {validationError && <p className="text-red-500 text-sm mt-1 p-3">{validationError}</p>}
                 <button className={`my-3 p-3 mt-4 w-full rounded ${disablePrimaryButton ? "bg-red-900 cursor-not-allowed opacity-50" : "bg-rose-600"}`} disabled={disablePrimaryButton} onClick={onPrimaryButtonClick}>{getHeading()}</button>
                 <p className='my-4 p-3 mt-4 w-full'>
